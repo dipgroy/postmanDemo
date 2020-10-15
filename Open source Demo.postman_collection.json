@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "eeaa0b5f-fae8-4f08-bcb9-b8f83ed289a6",
+		"name": "Open source Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Static Response Validation",
+			"item": [
+				{
+					"name": "Get Country - India",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e465de6b-0693-42f5-a345-1f574f2a5d1c",
+								"exec": [
+									"// To Check API is Alive\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 1: Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 2: Content-Type:'application/json;charset=utf-8' is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json;charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 3: Response has object\", function () {\r",
+									"    pm.expect(jsonData).is.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 3: Response object is not null\", function () {\r",
+									"    pm.expect(jsonData).is.not.null;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://restcountries.eu/rest/v2/alpha/in",
+							"protocol": "https",
+							"host": [
+								"restcountries",
+								"eu"
+							],
+							"path": [
+								"rest",
+								"v2",
+								"alpha",
+								"in"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "other",
+			"item": [
+				{
+					"name": "All Country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7f56901-035b-47c5-9712-3ea2bbbf64f6",
+								"exec": [
+									"// To Check API is Alive\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 1: Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 2: Content-Type:'application/json;charset=utf-8' is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json;charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 3: Response is an non empty array of a random length between 10000 to 20000\", function () {\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.be.gt(_.random(10000,20000));\r",
+									"    //_.random(10000,20000) is a lodash random number generator that will generate a random number between the specified range. this gives better control over {{$$randomInt}} of postman\r",
+									"});\r",
+									"\r",
+									"pm.test(\"To Check API is Alive 3: Response object is not null\", function () {\r",
+									"    pm.expect(jsonData).is.not.null;\r",
+									"});\r",
+									"\r",
+									"//To check each object in array has non empty name\r",
+									"//lodash loop '' each() '' is used to loop through every item on jsonData array, assign array to 'item'\r",
+									"\r",
+									"pm.test(\"To check each object in array has non empty name\", function () {\r",
+									"    _.each(jsonData, (item) =>\r",
+									"    {\r",
+									"        pm.expect(item.name).is.not.null;\r",
+									"    })\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://restcountries.eu/rest/v2/all",
+							"protocol": "https",
+							"host": [
+								"restcountries",
+								"eu"
+							],
+							"path": [
+								"rest",
+								"v2",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Country Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "990fdf80-cbb1-4328-83ff-7d108818d24d",
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"console.log(jsonData[0].name)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://restcountries.eu/rest/v2/all",
+							"protocol": "https",
+							"host": [
+								"restcountries",
+								"eu"
+							],
+							"path": [
+								"rest",
+								"v2",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
